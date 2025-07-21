@@ -31,30 +31,30 @@ FROM world_layoffs.layoffs_staging
 ;
 
 SELECT 
-    company, 
-    industry, 
-    total_laid_off,
-    `date`,
-    ROW_NUMBER() 
-    OVER(PARTITION BY 
-         company, 
-         industry, 
-         total_laid_off,
-         `date`
-         ) AS row_num
+	company, 
+	industry, 
+	total_laid_off,
+	`date`,
+	ROW_NUMBER() 
+ 	OVER(PARTITION BY 
+	company, 
+	industry, 
+	total_laid_off,
+        `date`
+        ) AS row_num
 FROM 	world_layoffs.layoffs_staging
 ;
 
 WITH duplicate_cte AS
 	(SELECT *,
 	ROW_NUMBER() OVER(PARTITION BY
-					company, 
-					industry, 
-					total_laid_off, 
-					percentage_laid_off,
-					`date`
-					) 
-					AS row_num
+		company, 
+		industry, 
+		total_laid_off, 
+		percentage_laid_off,
+		`date`
+		) 
+		AS row_num
 	FROM world_layoffs.layoffs_staging
 	)
 SELECT *
@@ -75,17 +75,17 @@ WHERE company = 'Oda'
 WITH duplicate_cte AS
 	(SELECT *,
 	ROW_NUMBER() OVER(PARTITION BY
-					company,
-					location,
-					industry, 
-					total_laid_off, 
-					percentage_laid_off,
-					`date`,
-					stage,
-					country,
-					funds_raised_millions
-					) 
-					AS row_num
+		company,
+		location,
+		industry, 
+		total_laid_off, 
+		percentage_laid_off,
+		`date`,
+		stage,
+		country,
+		funds_raised_millions
+		) 
+		AS row_num
 	FROM world_layoffs.layoffs_staging
 	)
 SELECT *
@@ -101,17 +101,17 @@ WHERE row_num > 1
 WITH duplicate_cte AS
 	(SELECT *,
 	ROW_NUMBER() OVER(PARTITION BY
-					company,
-					location,
-					industry, 
-					total_laid_off, 
-					percentage_laid_off,
-					`date`,
-					stage,
-					country,
-					funds_raised_millions
-					) 
-					AS row_num
+		company,
+		location,
+		industry, 
+		total_laid_off, 
+		percentage_laid_off,
+		`date`,
+		stage,
+		country,
+		funds_raised_millions
+		) 
+		AS row_num
 	FROM world_layoffs.layoffs_staging
 	)
 DELETE
@@ -144,17 +144,17 @@ FROM world_layoffs.layoffs_staging2
 INSERT INTO layoffs_staging2
 SELECT *,
 ROW_NUMBER() OVER(PARTITION BY
-				company,
-				location,
-				industry, 
-				total_laid_off, 
-				percentage_laid_off,
-				`date`,
-				stage,
-				country,
-				funds_raised_millions
-				) 
-				AS row_num
+	company,
+	location,
+	industry, 
+	total_laid_off, 
+	percentage_laid_off,
+	`date`,
+	stage,
+	country,
+	funds_raised_millions
+	)
+	AS row_num
 FROM world_layoffs.layoffs_staging
 ;
 
