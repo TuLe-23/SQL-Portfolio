@@ -64,7 +64,6 @@ WHERE row_num > 1
 ;
     
 -- Checking 'Oda' company to confirm
-
 SELECT *
 FROM world_layoffs.layoffs_staging
 WHERE company = 'Oda'
@@ -122,7 +121,6 @@ WHERE row_num > 1
 
 -- An issue was encountered due to an updating problem with CTE.
 -- A new staging table must be created to remove duplicates.
-
 CREATE TABLE `layoffs_staging2` (
   `company` text,
   `location` text,
@@ -344,7 +342,7 @@ AND t2.industry IS NOT NULL
 ;
 
 -- Update had not effect.
--- Concluded that blanks to must be turned into NULL values, due to issues when updating with a WHERE clause that has an OR.
+-- Concluded that blanks must be turned into NULL values, due to issues when updating with a WHERE clause that has an OR.
 UPDATE world_layoffs.layoffs_staging2
 SET industry = NULL
 WHERE industry = ''
@@ -398,7 +396,7 @@ ALTER TABLE world_layoffs.layoffs_staging2
 DROP COLUMN row_num
 ;
 
--- row_numn column deletion confirmed!
+-- row_num column deletion confirmed!
 SELECT *
 FROM world_layoffs.layoffs_staging2
 ;
